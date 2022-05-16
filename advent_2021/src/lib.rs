@@ -41,22 +41,43 @@ mod tests {
 		assert_eq!(answer, 1759818555);
 		println!("{answer}");
 	}
+
+	#[bench]
+	fn bench_d3p1(b: &mut Bencher) {
+		let bytesless = input::read_file(3);
+		let adv_input = bytesless.as_bytes();
+		b.iter(|| d3p1(adv_input));
+		let answer = d3p1(adv_input);
+		assert_eq!(answer, 1458194);
+		println!("{answer}");
+	}
 }
 
 mod input {
 	use std::io::{self, BufRead};
+	use std::fs;
+
+	const UNABLE: &str = "Unable to open file.";
 
 	pub fn read_lines_to_int_vec(day: i8) -> Vec<i32> {
 		read_lines(day).iter().map(|line| line.parse::<i32>().unwrap()).collect()
 	}
 
 	pub fn read_lines(day: i8) -> Vec<String> {
-		read_lines_helper(format!("inputs/d{}.txt", day))
+		read_lines_helper(file_name(day))
+	}
+
+	pub fn read_file(day: i8) -> String {
+		fs::read_to_string(file_name(day)).expect(UNABLE)
+	}
+
+	fn file_name(day: i8) -> String {
+		format!("inputs/d{}.txt", day)
 	}
 
 	fn read_lines_helper<P>(file_path: P) -> Vec<String>
 	where P: AsRef<std::path::Path> {
-		let file = std::fs::File::open(file_path).expect("Unable to open file.");
+		let file = fs::File::open(file_path).expect(UNABLE);
 		let lines = io::BufReader::new(file).lines();
 		lines.map(|line| line.unwrap()).collect()
 	}
@@ -126,4 +147,21 @@ pub fn d2p2(movements: &Vec<String>) -> u32 {
 		}
 	}
 	horizontal * depth
+}
+
+// First try on this bad boy 😏
+/// https://adventofcode.com/2021/day/3
+pub fn d3p1(diagnostics: &[u8]) -> u64 {
+	let mut gamma: u64 = 0;
+	let lines = diagnostics.len() / 13;
+	let half = lines / 2;
+	for digit in 0..12 {
+		let mut ones: u64 = 0;
+		for line in 0..lines {
+			ones += (diagnostics[line * 13 + digit] == '1' as u8) as u64;
+		}
+		gamma <<= 1;
+		gamma = gamma | (ones > half as u64) as u64;
+	}
+	gamma * (!gamma & 0xFFF)
 }
