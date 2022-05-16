@@ -8,15 +8,28 @@ mod tests {
 
 	#[test]
 	fn test_d1p1() {
-		let answer = d1p1(&input::read_lines_to_int_vec("inputs/d1p1.txt"));
+		let answer = d1p1(&input::read_lines_to_int_vec("inputs/d1.txt"));
 		println!("{answer}");
 		assert_eq!(answer, 1521);
 	}
 
 	#[bench]
 	fn bench_d1p1(b: &mut Bencher) {
-		let adv_input = input::read_lines_to_int_vec("inputs/d1p1.txt");
+		let adv_input = input::read_lines_to_int_vec("inputs/d1.txt");
 		b.iter(|| d1p1(&adv_input));
+	}
+
+	#[test]
+	fn test_d1p2() {
+		let answer = d1p2(&input::read_lines_to_int_vec("inputs/d1.txt"));
+		println!("{answer}");
+		assert_eq!(answer, 1543);
+	}
+
+	#[bench]
+	fn bench_d1p2(b: &mut Bencher) {
+		let adv_input = input::read_lines_to_int_vec("inputs/d1.txt");
+		b.iter(|| d1p2(&adv_input));
 	}
 }
 
@@ -46,4 +59,18 @@ pub fn d1p1(input: &Vec<i32>) -> i32 {
 		prev = *int;
 	}
 	sum
+}
+
+/// https://adventofcode.com/2021/day/1#part2
+pub fn d1p2(depths: &Vec<i32>) -> i32 {
+	let mut prev_sum = i32::max_value();
+	let mut increase_count = 0;
+	for i in 0..(depths.len()-2) {
+		let sum = depths[i] + depths[i+1] + depths[i+2];
+		if sum > prev_sum {
+			increase_count += 1;
+		}
+		prev_sum = sum;
+	}
+	increase_count
 }
