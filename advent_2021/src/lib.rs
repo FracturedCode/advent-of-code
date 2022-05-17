@@ -51,9 +51,19 @@ mod tests {
 		assert_eq!(answer, 1458194);
 		println!("{answer}");
 	}
+
+	#[bench]
+	fn bench_d3p2(b: &mut Bencher) {
+		let adv_input = input::read_binary_lines_to_uint_vec(3);
+		b.iter(|| d3p2(&adv_input));
+		let answer = d3p2(&adv_input);
+		//assert_eq!(answer, 1458194);
+		println!("{answer}");
+	}
 }
 
 mod input {
+	
 	use std::io::{self, BufRead};
 	use std::fs;
 
@@ -61,6 +71,10 @@ mod input {
 
 	pub fn read_lines_to_int_vec(day: i8) -> Vec<i32> {
 		read_lines(day).iter().map(|line| line.parse::<i32>().unwrap()).collect()
+	}
+
+	pub fn read_binary_lines_to_uint_vec(day: i8) -> Vec<u32> {
+		read_lines(day).iter().map(|line| u32::from_str_radix(line, 2).unwrap()).collect()
 	}
 
 	pub fn read_lines(day: i8) -> Vec<String> {
@@ -128,7 +142,7 @@ pub fn d2p1(movements: &Vec<String>) -> u32 {
 	(down - up) * horizontal
 }
 
-/// https://adventofcode.com/2021/day/2
+/// https://adventofcode.com/2021/day/2#part2
 pub fn d2p2(movements: &Vec<String>) -> u32 {
 	let mut horizontal: u32 = 0;
 	let mut aim: u32 = 0;
@@ -154,14 +168,43 @@ pub fn d2p2(movements: &Vec<String>) -> u32 {
 pub fn d3p1(diagnostics: &[u8]) -> u64 {
 	let mut gamma: u64 = 0;
 	let lines = diagnostics.len() / 13;
-	let half = lines / 2;
+	let half: u64 = lines as u64 / 2;
 	for digit in 0..12 {
 		let mut ones: u64 = 0;
 		for line in 0..lines {
 			ones += (diagnostics[line * 13 + digit] == '1' as u8) as u64;
 		}
 		gamma <<= 1;
-		gamma = gamma | (ones > half as u64) as u64;
+		gamma = gamma | (ones > half) as u64;
 	}
 	gamma * (!gamma & 0xFFF)
+}
+
+/// https://adventofcode.com/2021/day/3#part2
+pub fn d3p2(input: &Vec<u32>) -> u32 {
+	let mut oxygen: Vec<u32> = input.to_vec();
+	let mut scrubber: Vec<u32> = input.to_vec();
+	for digit in (0..12).rev() {
+		if oxygen.len() > 1
+		{
+			let mut ones = 0;
+			for line in &oxygen {
+				ones += ((*line >> digit) & 0x1 == 1) as u32
+			}
+			let more_ones: bool = ones >= oxygen.len() as u32 - ones;
+			oxygen = oxygen.iter().filter(|&line| (*line >> digit) & 0x1 == more_ones as u32).cloned().collect();
+		}
+		if scrubber.len() > 1
+		{
+			let mut zeros = 0;
+			for line in &scrubber {
+				zeros += ((*line >> digit) & 0x1 == 0) as u32
+			}
+			let more_zeros: bool = zeros > scrubber.len() as u32 - zeros;
+			scrubber = scrubber.iter().filter(|&line| (*line >> digit) & 0x1 == (more_zeros) as u32).cloned().collect();
+		}
+	}
+	let oxy = oxygen.iter().next().unwrap();
+	let co2 = scrubber.iter().next().unwrap();
+	oxy * co2
 }
