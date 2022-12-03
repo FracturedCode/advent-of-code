@@ -1,11 +1,11 @@
-using System.IO.Pipes;
-using System.Runtime.InteropServices.JavaScript;
 using BenchmarkDotNet.Attributes;
 
 namespace advent_2022;
 
-public class Day1 : Advent
+public class Day1 : AdventDay
 {
+	public Day1() : base(nameof(Day1)) {}
+	
 	[Test(ExpectedResult = 72602)]
 	[Benchmark]
 	public int Part1Linq() => ParsedSums().Max();
@@ -17,4 +17,5 @@ public class Day1 : Advent
 	private IEnumerable<int> ParsedSums() =>
 		Input.Split("\n\n", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
 			.Select(i => i.Split('\n').Sum(int.Parse));
+	
 }
