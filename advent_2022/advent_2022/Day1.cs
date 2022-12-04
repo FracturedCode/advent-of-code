@@ -15,7 +15,7 @@ public class Day1 : AdventDay
 	public override int Part2() => ParsedSums().OrderDescending().Take(3).Sum();
 
 	private IEnumerable<int> ParsedSums() =>
-		Input.Split("\n\n", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+		Input.Split("\n\n", Utilities.Dso)
 			.Select(i => i.Split('\n').Sum(int.Parse));
 	
 }

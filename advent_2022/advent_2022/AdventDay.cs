@@ -14,7 +14,7 @@ public abstract class AdventDay : GenericBenchmark
 	protected string Input { get; }
 
 	protected string[] InputSplitByLine() =>
-		Input.Split('\n', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+		Input.SplitDso('\n');
 
 	public abstract int Part1();
 	public abstract int Part2();
