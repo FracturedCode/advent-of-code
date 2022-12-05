@@ -1,4 +1,3 @@
-using System.Collections;
 using BenchmarkDotNet.Attributes;
 
 namespace advent_2022;
@@ -7,11 +6,10 @@ public class Day5 : AdventDay
 {
 	public Day5() : base(nameof(Day5)) { }
 
-	[Test(ExpectedResult = 0)]
+	[Test(ExpectedResult = "FCVRLMVQP")]
 	[Benchmark]
-	public override int Part1()
-	{
-		string ans = ManipulateStacks((from, to, moveCount) =>
+	public override object Part1() =>
+		ManipulateStacks((from, to, moveCount) =>
 		{
 			for (int i = 0; i < moveCount; i++)
 			{
@@ -19,15 +17,10 @@ public class Day5 : AdventDay
 			}
 		});
 
-		Console.WriteLine(ans);
-		return 0;
-	}
-
-	[Test(ExpectedResult = 0)]
+	[Test(ExpectedResult = "RWLWGJGFD")]
 	[Benchmark]
-	public override int Part2()
-	{
-		string ans = ManipulateStacks((from, to, moveCount) =>
+	public override object Part2() =>
+		ManipulateStacks((from, to, moveCount) =>
 		{
 			Stack<char> temp = new();
 			for (int i = 0; i < moveCount; i++)
@@ -40,10 +33,6 @@ public class Day5 : AdventDay
 				to.Push(temp.Pop());
 			}
 		});
-
-		Console.WriteLine(ans);
-		return 0;
-	}
 
 	private (string[], Stack<char>[]) ParseStacks()
 	{

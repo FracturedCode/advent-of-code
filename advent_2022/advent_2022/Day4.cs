@@ -8,13 +8,13 @@ public class Day4 : AdventDay
 
 	[Test(ExpectedResult = 431)]
 	[Benchmark]
-	public override int Part1() =>
+	public override object Part1() =>
 		ParseToTuples().Count(p => (p.left.lower >= p.right.lower && p.left.upper <= p.right.upper) ||
 		               (p.right.lower >= p.left.lower && p.right.upper <= p.left.upper));
 
 	[Test(ExpectedResult = 823)]
 	[Benchmark]
-	public override int Part2() =>
+	public override object Part2() =>
 		// Thank you ChatGPT, it was 2am and I was too tired to think of all those boolean statements on my own.
 		// Basically for each of the four bounds check if it is between the 2 bounds of the other range. 
 		ParseToTuples().Count(p => p.left.lower >= p.right.lower && p.left.lower <= p.right.upper ||

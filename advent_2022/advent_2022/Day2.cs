@@ -9,7 +9,7 @@ public class Day2 : AdventDay
 
 	[Test(ExpectedResult = 11841)]
 	[Benchmark]
-	public override int Part1() => SumFromSwitch(r => r switch
+	public override object Part1() => SumFromSwitch(r => r switch
 	{
 		"A X" => 4,
 		"A Y" => 8,
@@ -25,7 +25,7 @@ public class Day2 : AdventDay
 
 	[Test(ExpectedResult = 13022)]
 	[Benchmark]
-	public override int Part2() => SumFromSwitch(r => r switch
+	public override object Part2() => SumFromSwitch(r => r switch
 	{
 		"A X" => 3,
 		"A Y" => 4,

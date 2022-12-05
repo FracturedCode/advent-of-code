@@ -10,7 +10,7 @@ public class Day3 : AdventDay
 
 	[Test(ExpectedResult = 7568)]
 	[Benchmark]
-	public override int Part1() => GetPrioritySum(
+	public override object Part1() => GetPrioritySum(
 		InputSplitByLine().Select(line =>
 			{
 				int halfLength = line.Length / 2;
@@ -37,7 +37,7 @@ public class Day3 : AdventDay
 
 	[Test(ExpectedResult = 2780)]
 	[Benchmark]
-	public override int Part2() => GetPrioritySum(
+	public override object Part2() => GetPrioritySum(
 		InputSplitByLine().Chunk(3).Select(g =>
 			{
 				char commonItem;
