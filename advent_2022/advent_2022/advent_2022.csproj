@@ -12,7 +12,7 @@
         <PackageReference Include="BenchmarkDotNet" Version="0.13.2" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
         <PackageReference Include="morelinq" Version="3.3.2" />
-        <PackageReference Include="Net.FracturedCode.Utilities" Version="3.0.0" />
+        <PackageReference Include="Net.FracturedCode.Utilities" Version="3.1.0" />
         <PackageReference Include="NUnit" Version="3.13.3" />
         <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
         <PackageReference Include="NUnit.Analyzers" Version="3.3.0" />
@@ -38,6 +38,9 @@
       </None>
       <None Update="inputs\Day5.txt">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="inputs\Day6.txt">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
     </ItemGroup>
 
