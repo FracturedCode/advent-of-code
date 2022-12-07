@@ -15,20 +15,7 @@ public class Day7 : AdventDay
 
 	[Test(ExpectedResult = 3579501)]
 	[Benchmark]
-	public override object Part2()
-	{
-		List<Directory> dirs = ConstructDirectories();
-		int spaceUsed = dirs.Single(d => d.Name == string.Empty).Size;
-		const int totalSpace = 70000000;
-		int unusedSpace = totalSpace - spaceUsed;
-		const int requiredSpace = 30000000;
-		int minimumFolderDeleteSize = requiredSpace - unusedSpace;
-		if (minimumFolderDeleteSize < 0)
-			throw new Exception(
-				$"Directory space calculation must be incorrect because {nameof(minimumFolderDeleteSize)} is less than 0");
-		var candidates = dirs.Where(d => d.Size >= minimumFolderDeleteSize);
-		return candidates.Min(d => d.Size);
-	}
+	public override object Part2() => DoPart2(ConstructDirectories());
 
 	[Test(ExpectedResult = 1477771)]
 	[Benchmark]
@@ -37,10 +24,12 @@ public class Day7 : AdventDay
 
 	[Test(ExpectedResult = 3579501)]
 	[Benchmark]
-	public int Part2Switches()
+	public int Part2Switches() =>
+		DoPart2(ConstructDirectoriesSwitches());
+
+	private static int DoPart2(List<Directory> allDirs)
 	{
-		List<Directory> dirs = ConstructDirectoriesSwitches();
-		int spaceUsed = dirs.Single(d => d.Name == string.Empty).Size;
+		int spaceUsed = allDirs.Single(d => d.Name == string.Empty).Size;
 		const int totalSpace = 70000000;
 		int unusedSpace = totalSpace - spaceUsed;
 		const int requiredSpace = 30000000;
@@ -48,7 +37,7 @@ public class Day7 : AdventDay
 		if (minimumFolderDeleteSize < 0)
 			throw new Exception(
 				$"Directory space calculation must be incorrect because {nameof(minimumFolderDeleteSize)} is less than 0");
-		return dirs.Where(d => d.Size >= minimumFolderDeleteSize).Min(d => d.Size);
+		return allDirs.Where(d => d.Size >= minimumFolderDeleteSize).Min(d => d.Size);
 	}
 
 	private List<Directory> ConstructDirectories()
