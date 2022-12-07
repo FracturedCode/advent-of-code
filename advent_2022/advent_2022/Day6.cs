@@ -11,9 +11,6 @@ public class Day6 : AdventDay
 {
 	public Day6() : base(nameof(Day6)) { }
 
-	[Test]
-	public new void Benchmark() => DefaultBench(CustomDefaultConfig.AddExporter(RPlotExporter.Default));
-
 	[Test(ExpectedResult = 1238)]
 	[Benchmark]
 	public override object Part1()
