@@ -1,5 +1,5 @@
 from collections.abc import Callable
-from typing import Literal
+from typing import Literal, NamedTuple
 from stopwatch import Stopwatch
 from aocd.models import Puzzle
 import aocd, pprint
@@ -32,3 +32,7 @@ def check_and_submit(day: int, a_or_b: Literal["a", "b"], solve: Callable[[str],
         aocd.submit(answer, day=day, year=year, part=a_or_b)
 
     print()
+
+class Range(NamedTuple):
+    start: int
+    stop_inclusive: int

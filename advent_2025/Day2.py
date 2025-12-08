@@ -1,10 +1,6 @@
-from typing import NamedTuple
 from py_linq import Enumerable
-from lib import check_and_submit
+from lib import check_and_submit, Range
 
-class Range(NamedTuple):
-    start: int
-    stop_inclusive: int
 
 def num_repeats_twice(num: str) -> bool:
     midpoint = len(num) // 2
