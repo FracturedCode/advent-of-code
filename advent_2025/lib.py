@@ -27,6 +27,7 @@ def check_and_submit(day: int, a_or_b: Literal["a", "b"], solve: Callable[[str],
         expected_answer = puzzle.answer_a if a_or_b == "a" else puzzle.answer_b
         if answer != expected_answer:
             print(f"Your current solution is incorrect! Expected: {expected_answer} Actual: {answer}")
+
     if not puzzle.answered(a_or_b) and not check_failed:
         aocd.submit(answer, day=day, year=year, part=a_or_b)
 
