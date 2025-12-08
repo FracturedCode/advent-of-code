@@ -16,19 +16,18 @@ def parse_and_pad(data: str) -> List[List[str]]:
     return [list("." + x + ".") for x in data]
 
 def remove_rolls(data: List[List[str]]) -> int:
-    removed = 0
     for i in range(1, len(data) - 1):
         for j in range(1, len(data[0]) - 1):
             if data[i][j] == "@":
-                is_accessible = get_adjacent_count(data, i, j) < 4
-                removed += is_accessible
-                if is_accessible:
+                if get_adjacent_count(data, i, j) < 4:
                     data[i][j] = "x"
 
+    removed = 0
     for i in range(1, len(data) - 1):
         for j in range(1, len(data[0]) - 1):
             if data[i][j] == "x":
                 data[i][j] = "."
+                removed += 1
     return removed
 
 def solve_part_1_old(data: str) -> int:
