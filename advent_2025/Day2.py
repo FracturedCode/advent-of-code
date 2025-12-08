@@ -1,6 +1,6 @@
 from typing import NamedTuple
 from py_linq import Enumerable
-from lib import check_and_solve
+from lib import check_and_submit
 
 class Range(NamedTuple):
     start: int
@@ -34,5 +34,5 @@ def solve_part_1(data: str) -> int:
 def solve_part_2(data: str) -> int:
     return parse_and_get_all_nums(data).sum(num_repeats)
 
-check_and_solve(2, "a", solve_part_1)
-check_and_solve(2, "b", solve_part_2)
+check_and_submit(2, "a", solve_part_1)
+check_and_submit(2, "b", solve_part_2)

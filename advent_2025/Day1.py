@@ -1,7 +1,7 @@
 from functools import reduce
 from typing import NamedTuple
 from enum import StrEnum
-from lib import check_and_solve
+from lib import check_and_submit
 
 class Direction(StrEnum):
     LEFT = 'L'
@@ -19,8 +19,6 @@ class PuzzleState(NamedTuple):
 dial_size = 100
 
 def rotate(state: PuzzleState, rotation: Rotation):
-    global dial_size
-
     pos = state.dial_position + rotation.distance * (-1 if rotation.direction == Direction.LEFT else 1)
 
     zero_stopped = pos % dial_size == 0
@@ -44,5 +42,5 @@ def solve(data: str) -> PuzzleState:
     print(puzzle_state)
     return puzzle_state
 
-check_and_solve(1, "a", lambda x: solve(x).zero_stop_count)
-check_and_solve(1, "b", lambda x: solve(x).zero_seen_count)
+check_and_submit(1, "a", lambda x: solve(x).zero_stop_count)
+check_and_submit(1, "b", lambda x: solve(x).zero_seen_count)
