@@ -42,5 +42,6 @@ def solve(data: str) -> PuzzleState:
     print(puzzle_state)
     return puzzle_state
 
-check_and_submit(1, "a", lambda x: solve(x).zero_stop_count)
-check_and_submit(1, "b", lambda x: solve(x).zero_seen_count)
+if __name__ == "__main__":
+    check_and_submit(1, "a", lambda x: solve(x).zero_stop_count)
+    check_and_submit(1, "b", lambda x: solve(x).zero_seen_count)

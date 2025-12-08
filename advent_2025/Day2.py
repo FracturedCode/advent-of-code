@@ -34,5 +34,6 @@ def solve_part_1(data: str) -> int:
 def solve_part_2(data: str) -> int:
     return parse_and_get_all_nums(data).sum(num_repeats)
 
-check_and_submit(2, "a", solve_part_1)
-check_and_submit(2, "b", solve_part_2)
+if __name__ == "__main__":
+    check_and_submit(2, "a", solve_part_1)
+    check_and_submit(2, "b", solve_part_2)
