@@ -1,11 +1,7 @@
 from functools import reduce
 from typing import NamedTuple
 from enum import StrEnum
-
-from aocd import submit
-
 from lib import check_and_solve
-
 
 class Direction(StrEnum):
     LEFT = 'L'
@@ -41,19 +37,6 @@ def rotate(state: PuzzleState, rotation: Rotation):
     #print(state)
     return state
 
-example_data = """
-L68
-L30
-R48
-L5
-R60
-L55
-L1
-L99
-R14
-L82
-"""
-
 def solve(data: str) -> PuzzleState:
     data = data.strip().splitlines()
     data = map(lambda x: Rotation(Direction(x[0]), int(x[1:])), data)
@@ -61,5 +44,5 @@ def solve(data: str) -> PuzzleState:
     print(puzzle_state)
     return puzzle_state
 
-check_and_solve(1, example_data, 3, lambda x: solve(x).zero_stop_count)
-check_and_solve(1, example_data, 6, lambda x: solve(x).zero_seen_count)
+check_and_solve(1, "a", lambda x: solve(x).zero_stop_count)
+check_and_solve(1, "b", lambda x: solve(x).zero_seen_count)
