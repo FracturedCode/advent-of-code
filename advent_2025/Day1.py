@@ -1,9 +1,11 @@
-from aocd import get_data
-
 from functools import reduce
 from typing import NamedTuple
 from enum import StrEnum
-import math
+
+from aocd import submit
+
+from lib import check_and_solve
+
 
 class Direction(StrEnum):
     LEFT = 'L'
@@ -29,7 +31,7 @@ def rotate(state: PuzzleState, rotation: Rotation):
 
     rotation_zero_seen_count = abs(pos // dial_size - state.dial_position // dial_size)
     rotation_zero_seen_count += rotation.direction == Direction.LEFT and zero_stopped
-    # don't double count when we were already stopped on zero
+    # don't double count when we were previously on zero
     rotation_zero_seen_count -= rotation.direction == Direction.LEFT and state.dial_position % dial_size == 0
 
     state = PuzzleState(
@@ -51,9 +53,13 @@ L99
 R14
 L82
 """
-data = get_data(day=1, year=2025).strip().splitlines()
-#data = example_data.strip().splitlines()
-data = map(lambda x: Rotation(Direction(x[0]), int(x[1:])), data)
 
-puzzle_state = reduce(rotate, data, PuzzleState(50, 0, 0))
-print(puzzle_state)
+def solve(data: str) -> PuzzleState:
+    data = data.strip().splitlines()
+    data = map(lambda x: Rotation(Direction(x[0]), int(x[1:])), data)
+    puzzle_state = reduce(rotate, data, PuzzleState(50, 0, 0))
+    print(puzzle_state)
+    return puzzle_state
+
+check_and_solve(1, 2025, example_data, 3, lambda x: solve(x).zero_stop_count)
+check_and_solve(1, 2025, example_data, 6, lambda x: solve(x).zero_seen_count)
