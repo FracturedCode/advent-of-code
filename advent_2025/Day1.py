@@ -61,5 +61,5 @@ def solve(data: str) -> PuzzleState:
     print(puzzle_state)
     return puzzle_state
 
-check_and_solve(1, 2025, example_data, 3, lambda x: solve(x).zero_stop_count)
-check_and_solve(1, 2025, example_data, 6, lambda x: solve(x).zero_seen_count)
+check_and_solve(1, example_data, 3, lambda x: solve(x).zero_stop_count)
+check_and_solve(1, example_data, 6, lambda x: solve(x).zero_seen_count)

@@ -6,4 +6,5 @@ requires-python = ">=3.14"
 dependencies = [
     "advent-of-code-data>=2.1.0",
     "py-linq==1.4.0",
+    "python-stopwatch2==1.1.1",
 ]
