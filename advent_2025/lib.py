@@ -1,4 +1,5 @@
 from collections.abc import Callable
+from dataclasses import dataclass
 from typing import Literal, NamedTuple
 from stopwatch import Stopwatch
 from aocd.models import Puzzle
@@ -36,3 +37,6 @@ def check_and_submit(day: int, a_or_b: Literal["a", "b"], solve: Callable[[str],
 class Range(NamedTuple):
     start: int
     stop_inclusive: int
+
+    def __iter__(self):
+        return iter(range(self.start, self.stop_inclusive+1))
