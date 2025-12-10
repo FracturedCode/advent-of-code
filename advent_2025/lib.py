@@ -1,17 +1,22 @@
 from collections.abc import Callable
-from dataclasses import dataclass
-from typing import Literal, NamedTuple
+from typing import Literal, NamedTuple, Any, Protocol, runtime_checkable
 from stopwatch import Stopwatch
 from aocd.models import Puzzle
 import aocd, pprint
 
 year = 2025
 
-def check_and_submit(day: int, a_or_b: Literal["a", "b"], solve: Callable[[str], int]):
+custom_example_invocations = {
+    (8, "a"): lambda solve, data: solve(data, 10)
+}
+
+def check_and_submit(day: int, a_or_b: Literal["a", "b"], solve):
     check_failed = False
     puzzle = Puzzle(year=year, day=day)
     for example in puzzle.examples:
-        check_answer = str(solve(example.input_data))
+        ci = custom_example_invocations.get((day, a_or_b))
+        check_answer = ci(solve, example.input_data) if ci else solve(example.input_data)
+        check_answer = str(check_answer)
         expected_answer = example.answer_a if a_or_b == "a" else example.answer_b
         if check_answer != expected_answer:
             check_failed = True

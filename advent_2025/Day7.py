@@ -43,9 +43,6 @@ def solve_part_2(data: str) -> int:
     return dfs(1, data[0].index("|"))
 
 
-
-
-
 if __name__ == "__main__":
     check_and_submit(7, "a", solve_part_1)
     check_and_submit(7, "b", solve_part_2)
