@@ -1,4 +1,5 @@
 from collections.abc import Callable
+from functools import cache
 from typing import Literal, NamedTuple, Any, Protocol, runtime_checkable
 from stopwatch import Stopwatch
 from aocd.models import Puzzle
@@ -45,3 +46,23 @@ class Range(NamedTuple):
 
     def __iter__(self):
         return iter(range(self.start, self.stop_inclusive+1))
+
+class Point(NamedTuple):
+    x: int = 0
+    y: int = 0
+    z: int = 0
+
+    @staticmethod
+    def from_str(s: str) -> Point:
+        return Point(*[int(x) for x in s.split(",")])
+
+@cache
+def distance(a: Point, b: Point) -> float:
+    return ((b.x - a.x) ** 2 + (b.y - a.y) ** 2 + (b.z - a.z) ** 2) ** .5
+
+class Pair(NamedTuple):
+    a: Point
+    b: Point
+
+    def distance(self):
+        return distance(*self)
