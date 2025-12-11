@@ -1,8 +1,9 @@
-from functools import cache
 from typing import NamedTuple, Iterable
 from py_linq import Enumerable
 from lib import check_and_submit, Point, Pair
 from itertools import combinations
+
+# Solution using union-find aka disjoint-set
 
 class Graph:
     def __init__(self, nodes: set[Point]):

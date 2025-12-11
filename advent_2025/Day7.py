@@ -1,8 +1,8 @@
 from functools import cache
 from typing import List
-
-from py_linq import Enumerable
 from lib import check_and_submit
+
+# Solution using dfs
 
 def parse_data(data: str) -> List[List[str]]:
     data = data.splitlines()
