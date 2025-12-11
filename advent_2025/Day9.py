@@ -1,9 +1,6 @@
-from itertools import combinations, pairwise, chain
+from itertools import combinations
 from functools import cache
 from typing import List
-
-from py_linq import Enumerable
-
 from lib import check_and_submit, Point, Pair
 
 @cache
@@ -30,7 +27,7 @@ def overlaps(p: Pair, q: Pair) -> bool:
     return not (
         bp[0] >= bq[1] or
         bp[1] <= bq[0] or
-        bp[2] >= bq[3] or
+        bp[2] <= bq[3] or
         bp[3] >= bq[2]
     )
 
